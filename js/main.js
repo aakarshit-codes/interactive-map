@@ -9,8 +9,17 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
 }).addTo(map);
 
+// Loop through wonders and show name + description in popup
 wonders.forEach(wonder => {
+  const popupHTML = `
+    <div class="p-2 max-w-[240px]">
+      <img src="${wonder.image}" alt="${wonder.name}" class="w-full h-32 object-cover rounded-lg mb-2 shadow-md" />
+      <h2 class="text-xl font-semibold text-gray-800">${wonder.name}</h2>
+      <p class="mt-1 text-sm text-gray-600">${wonder.description}</p>
+    </div>
+  `;
+
   L.marker(wonder.coords)
     .addTo(map)
-    .bindPopup(`<h2 class="text-lg font-bold">${wonder.name}</h2>`);
+    .bindPopup(popupHTML);
 });
