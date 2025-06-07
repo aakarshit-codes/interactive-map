@@ -1,13 +1,16 @@
 import { wonders } from "./data.js";
 
 // Initialize the map and set its view to a specific geographical location and zoom level
-const map = L.map('map').setView([20.0, 0.0], 2);
+const map = L.map('map').setView([20.0, 0.0], 3);
 
 // Load tiles (map graphics) from OpenStreetMap
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:
     '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
 }).addTo(map);
+
+// Store markers to use in search
+const markers = [];
 
 // Loop through wonders and show name + description in popup
 wonders.forEach(wonder => {
@@ -19,7 +22,23 @@ wonders.forEach(wonder => {
     </div>
   `;
 
-  L.marker(wonder.coords)
+  const marker = L.marker(wonder.coords)
     .addTo(map)
     .bindPopup(popupHTML);
+
+  // Save reference for search
+  markers.push({ name: wonder.name.toLowerCase(), marker });
+});
+
+// Search Functionality
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', e => {
+  const query = e.target.value.trim().toLowerCase();
+  if (query === '') return;
+
+  const match = markers.find(m => m.name.includes(query));
+  if (match) {
+    map.setView(match.marker.getLatLng(), 6, { animate: true });
+    match.marker.openPopup();
+  }
 });
