@@ -34,22 +34,20 @@ wonders.forEach(wonder => {
   });
 });
 
-// Filter functionality
-const filterButtons = document.querySelectorAll('.filter-btn');
+const categorySelect = document.getElementById('categorySelect');
 
-filterButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const category = button.getAttribute('data-category');
-
-    categorisedMarkers.forEach(({ marker, category: markerCategory }) => {
-      if (category === 'All' || markerCategory === category) {
-        if (!map.hasLayer(marker)) marker.addTo(map);
-      } else {
-        if (map.hasLayer(marker)) map.removeLayer(marker);
-      }
-    });
+function filterWonders() {
+  const category = categorySelect.value;
+  categorisedMarkers.forEach(({ marker, category: markerCategory }) => {
+    if (category === 'All' || markerCategory === category) {
+      if (!map.hasLayer(marker)) marker.addTo(map);
+    } else {
+      if (map.hasLayer(marker)) map.removeLayer(marker);
+    }
   });
-});
+}
+
+categorySelect.addEventListener('change', filterWonders);
 
 // Search Functionality
 const searchInput = document.getElementById('searchInput');
