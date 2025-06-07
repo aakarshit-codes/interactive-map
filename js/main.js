@@ -42,3 +42,39 @@ searchInput.addEventListener('input', e => {
     match.marker.openPopup();
   }
 });
+
+//Geolocation Functionality
+const locateBtn = document.getElementById('locateBtn');
+
+locateBtn.addEventListener('click', () => {
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by your browser.');
+    return;
+  }
+
+  locateBtn.textContent = 'Locating...';
+
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      const { latitude, longitude } = position.coords;
+      map.setView([latitude, longitude], 6, { animate: true });
+
+      L.circleMarker([latitude, longitude], {
+        radius: 8,
+        fillColor: '#3B82F6', 
+        fillOpacity: 0.7,
+        color: '#1D4ED8',
+        weight: 2,
+      })
+        .addTo(map)
+        .bindPopup('You are here.')
+        .openPopup();
+
+      locateBtn.textContent = '📍 Use My Location';
+    },
+    () => {
+      alert('Unable to retrieve your location.');
+      locateBtn.textContent = '📍 Use My Location';
+    }
+  );
+});
