@@ -19,18 +19,26 @@
 </head>
 
 <body class="bg-gray-100 h-screen w-screen m-0 p-0">
-  <!-- Search Bar -->
   <div class="absolute top-4 left-1/2 transform -translate-x-1/2 z-[1000] w-[90%] max-w-md">
-    <input type="text" id="searchInput" placeholder="Search a wonder..."
-      class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" />
-  </div>
+    <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 rounded-lg">
+      <button id="locateBtn"
+        class="bg-white text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-100 focus:outline-none">
+        📍
+      </button>
 
-  <!-- Geolocation Button -->
-  <div class="absolute top-20 left-1/2 transform -translate-x-1/2 z-[1000]">
-    <button id="locateBtn"
-      class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none">
-      📍 Use My Location
-    </button>
+      <!-- Search Bar -->
+      <input type="text" id="searchInput" placeholder="Search a wonder..."
+        class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+      <select id="categorySelect"
+        class="w-full sm:w-48 px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-md">
+        <option value="All">Categories</option>
+        <option value="Historic">Historic</option>
+        <option value="Spiritual">Spiritual</option>
+        <option value="Architectural">Architectural</option>
+        <option value="Natural">Natural</option>
+      </select>
+    </div>
   </div>
 
   <!-- Map Container -->

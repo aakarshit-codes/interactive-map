@@ -10,7 +10,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Store markers to use in search
-const markers = [];
+const categorisedMarkers = [];
 
 // Loop through wonders and show name + description in popup
 wonders.forEach(wonder => {
@@ -27,7 +27,28 @@ wonders.forEach(wonder => {
     .bindPopup(popupHTML);
 
   // Save reference for search
-  markers.push({ name: wonder.name.toLowerCase(), marker });
+  categorisedMarkers.push({
+    name: wonder.name.toLowerCase(),
+    marker,
+    category: wonder.category,
+  });
+});
+
+// Filter functionality
+const filterButtons = document.querySelectorAll('.filter-btn');
+
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const category = button.getAttribute('data-category');
+
+    categorisedMarkers.forEach(({ marker, category: markerCategory }) => {
+      if (category === 'All' || markerCategory === category) {
+        if (!map.hasLayer(marker)) marker.addTo(map);
+      } else {
+        if (map.hasLayer(marker)) map.removeLayer(marker);
+      }
+    });
+  });
 });
 
 // Search Functionality
@@ -36,7 +57,7 @@ searchInput.addEventListener('input', e => {
   const query = e.target.value.trim().toLowerCase();
   if (query === '') return;
 
-  const match = markers.find(m => m.name.includes(query));
+  const match = categorisedMarkers.find(m => m.name.includes(query));
   if (match) {
     map.setView(match.marker.getLatLng(), 6, { animate: true });
     match.marker.openPopup();
@@ -52,8 +73,6 @@ locateBtn.addEventListener('click', () => {
     return;
   }
 
-  locateBtn.textContent = 'Locating...';
-
   navigator.geolocation.getCurrentPosition(
     position => {
       const { latitude, longitude } = position.coords;
@@ -61,7 +80,7 @@ locateBtn.addEventListener('click', () => {
 
       L.circleMarker([latitude, longitude], {
         radius: 8,
-        fillColor: '#3B82F6', 
+        fillColor: '#3B82F6',
         fillOpacity: 0.7,
         color: '#1D4ED8',
         weight: 2,
@@ -70,11 +89,11 @@ locateBtn.addEventListener('click', () => {
         .bindPopup('You are here.')
         .openPopup();
 
-      locateBtn.textContent = '📍 Use My Location';
+      locateBtn.textContent = '📍';
     },
     () => {
       alert('Unable to retrieve your location.');
-      locateBtn.textContent = '📍 Use My Location';
+      locateBtn.textContent = '📍';
     }
   );
 });

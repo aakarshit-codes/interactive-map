@@ -6,6 +6,7 @@ export const wonders = [
       "Ever dreamed of walking through living history? The Great Wall invites you to trace its winding path and feel the stories built into every stone.",
     image:
       "./assets/images/great-wall-of-china.jpg",
+    category: "Historical",
   },
   {
     name: "Petra",
@@ -14,6 +15,7 @@ export const wonders = [
       "If ancient mystery excites you, Petra is waiting. Hidden in rose-red cliffs, this city whispers tales of kings, traders, and lost time.",
     image:
       "./assets/images/petra.jpg",
+    category: "Historical",
   },
   {
     name: "Christ the Redeemer",
@@ -22,6 +24,7 @@ export const wonders = [
       "Looking for peace with a view? With arms open wide, Christ the Redeemer welcomes you to gaze over Rio and feel something bigger than yourself.",
     image:
       "./assets/images/christ-the-redeemer.jpg",
+    category: "Spiritual",
   },
   {
     name: "Machu Picchu",
@@ -30,6 +33,7 @@ export const wonders = [
       "Want to get away from it all? High in the Andes, Machu Picchu offers you ancient wonder, fresh air, and a quiet kind of awe.",
     image:
       "./assets/images/machu-picchu.jpg",
+    category: "Natural",
   },
   {
     name: "Chichen Itza",
@@ -38,6 +42,7 @@ export const wonders = [
       "Curious about the cosmos and lost civilizations? Chichen Itza brings you face-to-face with Mayan genius and unforgettable energy.",
     image:
       "./assets/images/chichen-itza.jpg",
+    category: "Historical",
   },
   {
     name: "Roman Colosseum",
@@ -46,6 +51,7 @@ export const wonders = [
       "History buff or not—you’ll feel the power here. The Colosseum doesn’t just show Rome’s past, it makes you part of it.",
     image:
       "./assets/images/roman-colosseum.jpg",
+    category: "Historical",
   },
   {
     name: "Taj Mahal",
@@ -54,5 +60,6 @@ export const wonders = [
       "A place built for love. Whether you're a romantic or not, standing before the Taj Mahal feels like something every heart deserves.",
     image:
       "./assets/images/taj-mahal.jpg",
+    category: "Architectural",
   },
 ];
